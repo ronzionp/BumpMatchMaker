@@ -1,6 +1,6 @@
 package com.bump.matchmaker.UI;
 
-public class TwitterUser extends User 
+public class TwitterUser extends SocialNetworkUser 
 {
 	@Override
 	public void shareApplicationWithFriends() throws Exception 

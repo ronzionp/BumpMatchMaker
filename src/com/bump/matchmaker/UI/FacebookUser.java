@@ -1,6 +1,6 @@
 package com.bump.matchmaker.UI;
 
-public class FacebookUser extends User 
+public class FacebookUser extends SocialNetworkUser 
 {
 
 	@Override
