@@ -8,4 +8,10 @@ public class FacebookUser extends User
 	{
 		// TODO share application on user's facebook wall
 	}
+
+	@Override
+	public void createInterestList() throws Exception {
+		// TODO create interests from facebook api
+		
+	}
 }

@@ -7,4 +7,10 @@ public class TwitterUser extends User
 	{
 		// TODO twit application in user's twitter		
 	}
+
+	@Override
+	public void createInterestList() throws Exception {
+		// TODO create interests from twitter api
+		
+	}
 }
