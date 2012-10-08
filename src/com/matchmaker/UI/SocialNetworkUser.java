@@ -1,10 +1,14 @@
-package com.bump.matchmaker.UI;
+package com.matchmaker.UI;
+
+import android.content.Context;
 
 public abstract class SocialNetworkUser extends User
 {
 	protected boolean isShareAllowed;
-	InterestList interestList;
+	protected InterestList interestList;
 	
+	public abstract void login(Context context) throws Exception;
+	public abstract void logout(Context context) throws Exception;
 	public abstract void shareApplicationWithFriends() throws Exception;
 	public abstract void createInterestList() throws Exception;
 	
@@ -16,7 +20,7 @@ public abstract class SocialNetworkUser extends User
 	}
 	/**
 	 * 
-	 * @return user's interest list whereas each interest added by real user implementation (i.e. {@link FacebookUser}) or null if list has not been initialized. 
+	 * @return user's interest list whereas each interest added by real user implementation (i.e. {@link FacebookUser}) or null if list has not been created. 
 	 */
 	public InterestList getInterestList()
 	{

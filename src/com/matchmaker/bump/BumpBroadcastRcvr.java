@@ -1,8 +1,8 @@
-package com.bump.matchmaker;
+package com.matchmaker.bump;
 
 import com.bump.api.BumpAPIIntents;
 import com.bump.api.IBumpAPI;
-import com.bump.matchmaker.logger.Logger;
+import com.matchmaker.logger.Logger;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

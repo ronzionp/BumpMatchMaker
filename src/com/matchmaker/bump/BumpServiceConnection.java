@@ -1,7 +1,7 @@
-package com.bump.matchmaker;
+package com.matchmaker.bump;
 
 import com.bump.api.IBumpAPI;
-import com.bump.matchmaker.logger.Logger;
+import com.matchmaker.logger.Logger;
 
 import android.content.ComponentName;
 import android.content.ServiceConnection;
@@ -12,14 +12,12 @@ import android.util.Log;
 public class BumpServiceConnection implements ServiceConnection{
 	
 	private IBumpAPI api;
-	private String api_key;
-	private String bump_user;
+	private static final String API_KEY = "7a61a726983b4d7bb4f37cef6caba301"; //TODO: this is only development api key.
+	private static final String BUMP_USER = "";
 	
 	public BumpServiceConnection(IBumpAPI api)
 	{
 		this.api = api;
-		
-		//TODO: initialize api key and bump user
 	}
 
 	@Override
@@ -28,7 +26,7 @@ public class BumpServiceConnection implements ServiceConnection{
         api = IBumpAPI.Stub.asInterface(binder);
         try 
         {
-            api.configure(api_key, bump_user);
+            api.configure(API_KEY, BUMP_USER);
         } 
         catch (RemoteException e) 
         {

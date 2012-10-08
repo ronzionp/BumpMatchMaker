@@ -1,4 +1,4 @@
-package com.bump.matchmaker.UI;
+package com.matchmaker.UI;
 
 import java.util.ArrayList;
 import java.util.HashMap;

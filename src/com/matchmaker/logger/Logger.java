@@ -1,4 +1,4 @@
-package com.bump.matchmaker.logger;
+package com.matchmaker.logger;
 
 import android.util.Log;
 

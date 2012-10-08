@@ -1,4 +1,4 @@
-package com.bump.matchmaker.UI;
+package com.matchmaker.UI;
 
 public class TwitterUser extends SocialNetworkUser 
 {
@@ -11,6 +11,18 @@ public class TwitterUser extends SocialNetworkUser
 	@Override
 	public void createInterestList() throws Exception {
 		// TODO create interests from twitter api
+		
+	}
+
+	@Override
+	public void login() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void logout() throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 }

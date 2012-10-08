@@ -1,9 +1,11 @@
-package com.bump.matchmaker;
+package com.matchmaker;
 
 import com.bump.api.BumpAPIIntents;
 import com.bump.api.IBumpAPI;
-import com.bump.matchmaker.logger.Logger;
 import com.example.bumpmatchmaker.R;
+import com.matchmaker.bump.BumpBroadcastRcvr;
+import com.matchmaker.bump.BumpServiceConnection;
+import com.matchmaker.logger.Logger;
 
 import android.os.Bundle;
 import android.app.Activity;
