@@ -1,9 +1,10 @@
 package com.matchmaker.UI;
 
+import android.app.Activity;
 import android.content.Context;
-
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.Facebook;
+import com.matchmaker.facebook.LoginHandler;
 
 public class FacebookUser extends SocialNetworkUser 
 {
@@ -12,8 +13,9 @@ public class FacebookUser extends SocialNetworkUser
 	private static final String APP_ID = "";
 	private Facebook facebook;
 	private AsyncFacebookRunner asyncFacebookRunner;
+	private LoginHandler loginHandler;
 	
-	public FacebookUser()
+	public FacebookUser(Activity activity)
 	{
 		facebook = new Facebook(APP_ID);
 		asyncFacebookRunner = new AsyncFacebookRunner(facebook);
@@ -33,13 +35,27 @@ public class FacebookUser extends SocialNetworkUser
 
 	@Override
 	public void login(Context context) throws Exception {
-		// TODO Auto-generated method stub
+		try
+		{
+			loginHandler.login();
+		}
+		catch(Exception e)
+		{
+			//TODO: print to log
+		}
 		
 	}
 
 	@Override
 	public void logout(Context context) throws Exception {
-		// TODO Auto-generated method stub
+		try
+		{
+			loginHandler.logout();
+		}
+		catch(Exception e)
+		{
+			//TODO: print to log
+		}
 		
 	}
 }
