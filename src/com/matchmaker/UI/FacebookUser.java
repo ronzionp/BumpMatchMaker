@@ -22,19 +22,21 @@ public class FacebookUser extends SocialNetworkUser
 	}
 
 	@Override
-	public void shareApplicationWithFriends() throws Exception 
+	public void shareApplicationWithFriends()
 	{
 		// TODO share application on user's facebook wall
 	}
 
 	@Override
-	public void createInterestList() throws Exception {
+	public void createInterestList()
+	{
 		// TODO create interests from facebook api
 		
 	}
 
 	@Override
-	public void login(Context context) throws Exception {
+	public void login() 
+	{
 		try
 		{
 			loginHandler.login();
@@ -47,7 +49,8 @@ public class FacebookUser extends SocialNetworkUser
 	}
 
 	@Override
-	public void logout(Context context) throws Exception {
+	public void logout()
+	{
 		try
 		{
 			loginHandler.logout();

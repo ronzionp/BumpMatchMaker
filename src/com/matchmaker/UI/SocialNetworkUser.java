@@ -7,10 +7,10 @@ public abstract class SocialNetworkUser extends User
 	protected boolean isShareAllowed;
 	protected InterestList interestList;
 	
-	public abstract void login(Context context) throws Exception;
-	public abstract void logout(Context context) throws Exception;
-	public abstract void shareApplicationWithFriends() throws Exception;
-	public abstract void createInterestList() throws Exception;
+	public abstract void login();
+	public abstract void logout();
+	public abstract void shareApplicationWithFriends();
+	public abstract void createInterestList();
 	
 	public boolean isShareAllowed() {
 		return isShareAllowed;
