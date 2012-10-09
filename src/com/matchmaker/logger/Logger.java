@@ -3,7 +3,8 @@ package com.matchmaker.logger;
 import android.util.Log;
 
 public enum Logger {
-	
+
+	//**********************************************	Bump	**********************************************//
 	APPLICATION_BOOT		(LogTags.APPLICATION, "Boot", Log.DEBUG), 
 	APPLICATION_DESTROY		(LogTags.APPLICATION, "Destroyed", Log.DEBUG), 
 	SERVICE_CONNECTED		(LogTags.CONNECTION, "Service connected", Log.DEBUG), 
@@ -16,6 +17,12 @@ public enum Logger {
 	BUMP_NOT_MATCHED		(LogTags.BROADCAST, "Bump not matched", Log.DEBUG), 
 	CONNECTED_TO_BUMP		(LogTags.BROADCAST, "Connected to Bump...", Log.DEBUG), 
 	BROADCAST_RCVR_ERROR 	(LogTags.BROADCAST, "Error while trying to receive action: {0}", Log.ERROR), 
+	
+	//*********************************************		Facebook	********************************************//
+	
+	
+	
+	
 	;
 	
     

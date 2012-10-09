@@ -1,7 +1,5 @@
 package com.matchmaker.UI;
 
-import android.content.Context;
-
 public abstract class SocialNetworkUser extends User
 {
 	protected boolean isShareAllowed;
