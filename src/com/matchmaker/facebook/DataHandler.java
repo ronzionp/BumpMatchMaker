@@ -1,65 +1,68 @@
 package com.matchmaker.facebook;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONObject;
 
 import com.facebook.android.Facebook;
 import com.facebook.android.Util;
-import com.matchmaker.UI.FacebookUser;
-import com.matchmaker.UI.InterestList;
+import com.matchmaker.users.FacebookUser;
+import com.matchmaker.users.InterestList;
 
-public class DataHandler {
-	
+public class DataHandler extends Thread
+{
 	private static final String BASIC_DATA_QUERY = "me";
 	private static final String INTERESTS_LIST_QUERY = "me/interests";
+	private List<DataPullFinished> listeners;
+	private Facebook facebook;
 	
-	private JSONObject responseJson;
-
-	public JSONObject getInterestsList(final Facebook facebook) 
+	public DataHandler(Facebook facebook)
 	{
-		return requestForData(facebook, INTERESTS_LIST_QUERY);
+		this.facebook = facebook;
+		listeners = new ArrayList<DataPullFinished>();
+	}
+	
+	public void addDataPullFinishedListener(DataPullFinished listener)
+	{
+		if (listeners == null)
+			listeners  = new ArrayList<DataPullFinished>();
+		
+		listeners.add(listener);
+	}
+	
+	public void removeDataPullFinishedListener(DataPullFinished listener)
+	{
+		if (listeners != null && listeners.contains(listener))
+			listeners.remove(listener);
 	}
 
 	/**
-	 * This method return the basic user data in json object format or null in case of an error.
-	 * @param facebook api object to inspect.
-	 * @return
+	 * This method will start as a new Threat a facebook request for user basic data and interests list
+	 * in order to use results one must register with {@link DataPullFinished} before call this method.
 	 */
-	public JSONObject getBasicUserData(final Facebook facebook) 
-	{
-		return requestForData(facebook, BASIC_DATA_QUERY);
-	}
-	
-	private JSONObject requestForData(final Facebook facebook, final String query)
-	{
-		responseJson = null;
-		Thread networkRequestThread = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				try
-				{
-					responseJson = Util.parseJson(facebook.request(query));
-					this.notifyAll();
-				}
-				catch(Exception ex)
-				{
-					//TODO: error handling
-				}			
-				
+	@Override
+	public synchronized void run() {
+		super.run();
+		JSONObject basicUserData = null;
+		JSONObject interestsList = null;
+		try
+		{
+			basicUserData = Util.parseJson(facebook.request((BASIC_DATA_QUERY)));
+			interestsList = Util.parseJson(facebook.request((INTERESTS_LIST_QUERY)));
+		}
+		catch (Exception e)
+		{
+			for (DataPullFinished listener : listeners)
+			{
+				listener.onFailure(e);
 			}
-		});
-	    networkRequestThread.start();	
-	    try
-	    {
-	    	//TODO: log - waiting for User basic data response
-	    	this.wait();
-	    }
-	    catch (Exception e)
-	    {
-	    	//TODO: error handling
-	    }
-	    
-	    return responseJson;
+		}
+		
+		for (DataPullFinished listener : listeners)
+		{
+			listener.onSuccess(basicUserData, interestsList);
+		}
 	}
 
 }

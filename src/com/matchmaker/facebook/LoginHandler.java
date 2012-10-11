@@ -14,9 +14,9 @@ import com.facebook.android.Facebook;
 import com.facebook.android.Util;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
-import com.matchmaker.UI.FacebookUser;
 import com.matchmaker.facebook.SessionEvents.AuthListener;
 import com.matchmaker.facebook.SessionEvents.LogoutListener;
+import com.matchmaker.users.FacebookUser;
 
 public class LoginHandler {
 	

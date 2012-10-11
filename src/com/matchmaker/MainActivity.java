@@ -2,10 +2,10 @@ package com.matchmaker;
 
 import com.bump.api.BumpAPIIntents;
 import com.bump.api.IBumpAPI;
-import com.matchmaker.UI.FacebookUser;
 import com.matchmaker.bump.BumpBroadcastRcvr;
 import com.matchmaker.bump.BumpServiceConnection;
 import com.matchmaker.logger.Logger;
+import com.matchmaker.users.FacebookUser;
 
 import android.os.Bundle;
 import android.app.Activity;

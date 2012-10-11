@@ -1,4 +1,4 @@
-package com.matchmaker.UI;
+package com.matchmaker.users;
 
 import java.text.SimpleDateFormat;
 
@@ -9,6 +9,7 @@ import android.app.Activity;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.Facebook;
 import com.matchmaker.facebook.DataHandler;
+import com.matchmaker.facebook.DataPullFinished;
 import com.matchmaker.facebook.LoginHandler;
 import com.matchmaker.facebook.PostHandler;
 import com.matchmaker.facebook.SessionEvents;
@@ -29,8 +30,41 @@ public class FacebookUser extends SocialNetworkUser
 	private DataHandler dataHandler;
 	private InterestList interestList;
 	private Activity activity;
-	private AuthListener authListener;
     private SimpleDateFormat dateFormatter;
+    
+    
+	private AuthListener authListener = new AuthListener() {
+		
+		@Override
+		public void onAuthSucceed() {
+			dataHandler.start();
+		}
+
+		@Override
+		public void onAuthFail(String error) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
+	
+    private DataPullFinished dataListener = new DataPullFinished() {
+		
+		@Override
+		public void onSuccess(JSONObject userBasicData, JSONObject interestsList) {
+			if (userBasicData == null || interestsList == null)
+				//TODO: error handling
+				
+			//Data is not null
+			parseBasicUserData(userBasicData);
+			parseUserInterestsList(interestsList);
+		}
+		
+		@Override
+		public void onFailure(Exception e) {
+			// TODO Auto-generated method stub
+			
+		}
+	};
 	
 	
 	public FacebookUser(Activity activity)
@@ -40,20 +74,7 @@ public class FacebookUser extends SocialNetworkUser
 		loginHandler = new LoginHandler(activity, facebook,  new String[]{"user_interests", "email", "user_birthday"});
 		postHandler = new PostHandler(facebook, asyncFacebookRunner);
 		dateFormatter = new SimpleDateFormat("mm/DD/yyyy");
-		authListener = new AuthListener() {
-			
-			@Override
-			public void onAuthSucceed() {
-				pullBasicUserData();
-				createInterestList();
-			}
-
-			@Override
-			public void onAuthFail(String error) {
-				// TODO Auto-generated method stub
-				
-			}
-		};
+		dataHandler = new DataHandler(facebook);
 	}
 
 	@Override
@@ -67,6 +88,7 @@ public class FacebookUser extends SocialNetworkUser
 	public void login() 
 	{
 		SessionEvents.addAuthListener(authListener);
+		dataHandler.addDataPullFinishedListener(dataListener);
 		loginHandler.login();
 	}
 
@@ -85,55 +107,44 @@ public class FacebookUser extends SocialNetworkUser
 	}
 	
 	
-	private void pullBasicUserData() 
+	private void parseBasicUserData(JSONObject userBasicData) 
 	{
 		try
 		{
-			JSONObject json = dataHandler.getBasicUserData(facebook);
-			if (json == null)
-			{
-				//TODO: error handling;
-				return;
-			}
-			
-			// Json is not null:
-			if (json.has("id"))
-				setFacebookID(json.getString("id"));
-			if (json.has("email"))
-				setEmail(json.getString("email"));
-			if (json.has("last_name"))
-				setLastName(json.getString("last_name"));
-			if (json.has("first_name"))
-				setFirstName(json.getString("first_name"));
-			if (json.has("birthday"))
-				setBirthDay(dateFormatter.parse(json.getString("birthday")));	
+			if (userBasicData.has("id"))
+				setFacebookID(userBasicData.getString("id"));
+			if (userBasicData.has("email"))
+				setEmail(userBasicData.getString("email"));
+			if (userBasicData.has("last_name"))
+				setLastName(userBasicData.getString("last_name"));
+			if (userBasicData.has("first_name"))
+				setFirstName(userBasicData.getString("first_name"));
+			if (userBasicData.has("birthday"))
+				setBirthDay(dateFormatter.parse(userBasicData.getString("birthday")));	
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
-			//TODO: error handling;
+			//TODO: error handling
 		}
 	}
 	
 
-	@Override
-	public void createInterestList()
+	public void parseUserInterestsList(JSONObject interestsList)
 	{
 		try
 		{
-			JSONObject json = dataHandler.getInterestsList(facebook);
-			if (json == null)
-			{
-				//TODO: error handling;
-				return;
-			}
 			//TODO: parse interests from response
 			
 		}
 		catch(Exception e)
 		{
-			//TODO: error handling;
+			//TODO: error handling
 		}			
-				
+	}
+
+	@Override
+	public void setIsShareAllowed() {
+		// TODO Auto-generated method stub
 		
 	}
 	

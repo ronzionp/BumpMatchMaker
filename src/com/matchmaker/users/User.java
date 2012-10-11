@@ -1,4 +1,4 @@
-package com.matchmaker.UI;
+package com.matchmaker.users;
 
 import java.util.Date;
 
