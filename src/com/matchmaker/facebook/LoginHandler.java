@@ -1,5 +1,9 @@
 package com.matchmaker.facebook;
 
+import java.text.SimpleDateFormat;
+
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,8 +11,10 @@ import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.BaseRequestListener;
 import com.facebook.android.DialogError;
 import com.facebook.android.Facebook;
+import com.facebook.android.Util;
 import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
+import com.matchmaker.UI.FacebookUser;
 import com.matchmaker.facebook.SessionEvents.AuthListener;
 import com.matchmaker.facebook.SessionEvents.LogoutListener;
 
@@ -19,6 +25,7 @@ public class LoginHandler {
     private SessionListener sessionListener = new SessionListener();
     private String[] permissions;
     private Activity activity;
+
     
     public LoginHandler(Activity activity, Facebook facebook, String[] permissions)
     {
@@ -26,7 +33,6 @@ public class LoginHandler {
     	this.activity = activity;
     	this.permissions = permissions;
     	handler = new Handler();
-        
         SessionEvents.addAuthListener(sessionListener);
         SessionEvents.addLogoutListener(sessionListener);
     }
@@ -51,7 +57,7 @@ public class LoginHandler {
     
     private final class LoginDialogListener implements DialogListener {
         public void onComplete(Bundle values) {
-            SessionEvents.onLoginSuccess();
+            SessionEvents.onLoginSuccess();            
         }
 
         public void onFacebookError(FacebookError error) {

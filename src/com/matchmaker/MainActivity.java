@@ -2,7 +2,7 @@ package com.matchmaker;
 
 import com.bump.api.BumpAPIIntents;
 import com.bump.api.IBumpAPI;
-import com.example.bumpmatchmaker.R;
+import com.matchmaker.UI.FacebookUser;
 import com.matchmaker.bump.BumpBroadcastRcvr;
 import com.matchmaker.bump.BumpServiceConnection;
 import com.matchmaker.logger.Logger;
@@ -37,6 +37,9 @@ public class MainActivity extends Activity {
 	    filter.addAction(BumpAPIIntents.MATCHED);
 	    filter.addAction(BumpAPIIntents.CONNECTED);
 	    registerReceiver(receiver, filter);
+	    
+	    FacebookUser facebookUser = new FacebookUser(this);
+	    facebookUser.login();
     }
     
 //
