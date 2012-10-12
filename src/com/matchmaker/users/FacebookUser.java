@@ -11,6 +11,7 @@ import com.facebook.android.Facebook;
 import com.matchmaker.facebook.DataHandler;
 import com.matchmaker.facebook.DataPullFinished;
 import com.matchmaker.facebook.LoginHandler;
+import com.matchmaker.facebook.Permissions;
 import com.matchmaker.facebook.PostHandler;
 import com.matchmaker.facebook.SessionEvents;
 import com.matchmaker.facebook.SessionEvents.AuthListener;
@@ -71,7 +72,7 @@ public class FacebookUser extends SocialNetworkUser
 	{
 		this.activity = activity;
 		facebook = new Facebook(APP_ID);
-		loginHandler = new LoginHandler(activity, facebook,  new String[]{"user_interests", "email", "user_birthday"});
+		loginHandler = new LoginHandler(activity, facebook,  Permissions.ALL);
 		postHandler = new PostHandler(facebook, asyncFacebookRunner);
 		dateFormatter = new SimpleDateFormat("mm/DD/yyyy");
 		dataHandler = new DataHandler(facebook);

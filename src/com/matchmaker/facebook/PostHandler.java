@@ -1,8 +1,4 @@
 package com.matchmaker.facebook;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 import android.os.Bundle;
 
@@ -10,8 +6,6 @@ import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.BaseDialogListener;
 import com.facebook.android.BaseRequestListener;
 import com.facebook.android.Facebook;
-import com.facebook.android.FacebookError;
-import com.facebook.android.Util;
 
 public class PostHandler {
 	
