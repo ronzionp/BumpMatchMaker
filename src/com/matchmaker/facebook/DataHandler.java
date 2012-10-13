@@ -4,16 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONObject;
-
 import com.facebook.android.Facebook;
 import com.facebook.android.Util;
-import com.matchmaker.users.FacebookUser;
-import com.matchmaker.users.InterestList;
 
 public class DataHandler extends Thread
 {
-	private static final String BASIC_DATA_QUERY = "me";
-	private static final String INTERESTS_LIST_QUERY = "me/interests";
 	private List<DataPullFinished> listeners;
 	private Facebook facebook;
 	
@@ -46,10 +41,29 @@ public class DataHandler extends Thread
 		super.run();
 		JSONObject basicUserData = null;
 		JSONObject interestsList = null;
+		JSONObject books = null;
+		JSONObject games = null;
+		JSONObject pages = null;
+		JSONObject movies = null;
+		JSONObject music = null;
+		JSONObject tv = null;
+		JSONObject groups = null;
 		try
 		{
-			basicUserData = Util.parseJson(facebook.request((BASIC_DATA_QUERY)));
-			interestsList = Util.parseJson(facebook.request((INTERESTS_LIST_QUERY)));
+			basicUserData = Util.parseJson(facebook.request(DataReferences.ID.getRequest()));
+			interestsList = Util.parseJson(facebook.request(DataReferences.INTERESTS.getRequest()));
+			books = Util.parseJson(facebook.request(DataReferences.BOOKS.getRequest()));
+			games = Util.parseJson(facebook.request(DataReferences.GAMES.getRequest()));
+			pages = Util.parseJson(facebook.request(DataReferences.PAGES.getRequest()));
+			movies = Util.parseJson(facebook.request(DataReferences.MOVIES.getRequest()));
+			music = Util.parseJson(facebook.request(DataReferences.MUSIC.getRequest()));
+			tv = Util.parseJson(facebook.request(DataReferences.TV.getRequest()));
+			groups = Util.parseJson(facebook.request(DataReferences.GROUPS.getRequest()));
+			
+			for (DataPullFinished listener : listeners)
+			{
+				listener.onSuccess(basicUserData, interestsList, books, games, pages, movies, music, tv, groups);
+			}
 		}
 		catch (Exception e)
 		{
@@ -57,11 +71,6 @@ public class DataHandler extends Thread
 			{
 				listener.onFailure(e);
 			}
-		}
-		
-		for (DataPullFinished listener : listeners)
-		{
-			listener.onSuccess(basicUserData, interestsList);
 		}
 	}
 
